@@ -84,7 +84,6 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
         .addField(`你好 ${message.author.username}!`, `**客服人員**很快就會到來，請稍等!`)
 	.addField(`Bot by oold!`)
         .setTimestamp();
-	.setFooter(`Bot by oold`)
         c.send({ embed: embed });
     }).catch(console.error);
 }

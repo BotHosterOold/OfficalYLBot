@@ -83,6 +83,7 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
         .setColor(0xCF40FA)
         .addField(`你好 ${message.author.username}!`, `**客服人員**很快就會到來，請稍等!`)
         .setTimestamp();
+	.setFooter(`Bot by oold`)
         c.send({ embed: embed });
     }).catch(console.error);
 }

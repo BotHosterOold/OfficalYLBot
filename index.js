@@ -16,6 +16,12 @@ bot.on('message', msg=>{
 	}
 })
 
+bot.on('message', msg=>{
+    if(msg.content ===  "trash"){
+		msg.reply('No u!');
+	}
+})
+
 //Welcome
 bot.on('guildMemberAdd', member => {
     // Send the message to a designated channel on a server:

@@ -81,8 +81,7 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
         message.channel.send(`:white_check_mark: 以創建您的私人頻道, #${c.name}.`);
         const embed = new Discord.RichEmbed()
         .setColor(0xCF40FA)
-        .addField(`你好 ${message.author.username}!`, `**客服人員**很快就會到來，請稍等!`)
-	.addField(`Bot by oold!`)
+        .addField(`你好 ${message.author.username}!`, `YL**客服人員**很快就會到來，請稍等!`)
         .setTimestamp();
         c.send({ embed: embed });
     }).catch(console.error);

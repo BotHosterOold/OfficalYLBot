@@ -1,9 +1,20 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const YTDL = require(ytdl-core");
 
 const token = 'NTc0OTUzODg2Nzg4MzU0MDQ4.XN9XyA.yBZp3ExCjR5hxFZFHPs4zaq0ALM';
 
 var prefix = "+";
+
+function play(connection, message) {
+    var server = servers[message.guild.id];
+	
+    server.dispatcher = connection.playStream(YTDL(server.queue[0]. {filter: "audioonly"}))
+	
+    server.queue.shift()；
+    
+    server.dispatcher.on("end")
+}
 
 bot.on('ready', () =>{
     console.log('Bot已經Online了喲！')
@@ -128,7 +139,7 @@ case "play":
     var server = servers[message.guild.id]; 
 	    
     if (!message.guild.voiceConnection) message.member.voiceChannel.join()。then(function(connection) {
-	    
-    };
+	play(connection, message);    
+    });
     break;
 bot.login(token);

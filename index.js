@@ -5,6 +5,9 @@ const token = 'NTc0OTUzODg2Nzg4MzU0MDQ4.XN9XyA.yBZp3ExCjR5hxFZFHPs4zaq0ALM';
 
 var prefix = "+";
 
+let category = server.channels.find(c => c.name == "Text Channels" && c.type == "category"),
+  channel = server.channels.find(c => c.name == "TicketHelp" && c.type == "TICKET");
+
 
 bot.on('ready', () =>{
     console.log('Bot已經Online了喲！')
@@ -62,8 +65,9 @@ bot.on("message", (message) => {
 if (message.content.toLowerCase().startsWith(prefix + `new`)) {
     const reason = message.content.split(" ").slice(1).join(" ");
     if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`This server doesn't have a \`Support Team\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
-    if (message.guild.channels.exists("name", "ticket-" + message.author.id)) return message.channel.send(`你現在已經有一個Support ticket了.`);
-    message.guild.createChannel(`ticket-${message.author.id}`, "text").then(c => {
+    if (message.guild.channels.exists("name", "TicketHelp")) return message.channel.send(`你現在已經有一個Support ticket了.`);
+    message.guild.createChannel(`ticket-${message.author.id}`, "text").then(channel => {
+	let category = server.channels.find(c => c.name == "Text Channels" && c.type == "category");
         let role = message.guild.roles.find("name", "Support Team");
         let role2 = message.guild.roles.find("name", "@everyone");
         c.overwritePermissions(role, {

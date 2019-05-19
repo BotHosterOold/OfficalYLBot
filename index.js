@@ -76,7 +76,6 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
         c.overwritePermissions(message.author, {
             SEND_MESSAGES: true,
             READ_MESSAGES: true
-	m1.delete();
         });
         message.channel.send(`:white_check_mark: 以創建您的私人頻道, #${c.name}.`);
         const embed = new Discord.RichEmbed()

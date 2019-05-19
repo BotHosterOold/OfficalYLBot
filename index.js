@@ -13,7 +13,10 @@ function play(connection, message) {
 	
     server.queue.shift()；
     
-    server.dispatcher.on("end")
+    server.dispatcher.on("end", message);
+        if (server.queue[0]) play(connection, message);
+        else connection.disconnect();
+    });
 }
 
 bot.on('ready', () =>{
@@ -142,4 +145,12 @@ case "play":
 	play(connection, message);    
     });
     break;
+case "skip":
+    var server = servers[message.guild.id]
+    
+    if (server.dispatcher) server.dispatcher.end()；
+    break
+	    
+default:
+    messasge.channel.sendMesssage("請用一個有效的指令")	    
 bot.login(token);

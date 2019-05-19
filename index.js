@@ -62,7 +62,7 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
     const reason = message.content.split(" ").slice(1).join(" ");
     if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`This server doesn't have a \`Support Team\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
     if (message.guild.channels.exists("name", "TicketHelp")) return message.channel.send(`你現在已經有一個Support ticket了.`);
-    message.guild.createChannel(`ticket-${discord.Message.auhor}`, "text").then(c => {
+    message.guild.createChannel(`ticket-${message.author.username}`, "text").then(c => {
         let role = message.guild.roles.find("name", "Support Team");
         let role2 = message.guild.roles.find("name", "@everyone");
         c.overwritePermissions(role, {
@@ -80,7 +80,7 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
         message.channel.send(`:white_check_mark: 以創建您的私人頻道, #${c.name}.`);
         const embed = new Discord.RichEmbed()
         .setColor(0xCF40FA)
-        .addField(`你好 ${message.author.username}!`, `YL**客服人員**很快就會到來，請稍等!`)
+        .addField(`你好 #${c.name}!`, `YL**客服人員**很快就會到來，請稍等!`)
         .setTimestamp();
         c.send({ embed: embed });
     }).catch(console.error);

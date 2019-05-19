@@ -1,23 +1,9 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const YTDL = require(ytdl-core");
 
 const token = 'NTc0OTUzODg2Nzg4MzU0MDQ4.XN9XyA.yBZp3ExCjR5hxFZFHPs4zaq0ALM';
 
 var prefix = "+";
-
-function play(connection, message) {
-    var server = servers[message.guild.id];
-	
-    server.dispatcher = connection.playStream(YTDL(server.queue[0]. {filter: "audioonly"}))
-	
-    server.queue.shift()；
-    
-    server.dispatcher.on("end", message);
-        if (server.queue[0]) play(connection, message);
-        else connection.disconnect();
-    });
-}
 
 bot.on('ready', () =>{
     console.log('Bot已經Online了喲！')
@@ -122,37 +108,4 @@ if (message.content.toLowerCase().startsWith(prefix + `close`)) {
 
 });
 
-//Music
-var server = ();
-case "play":
-    if <!args[1]>
-	message.channel.sendMessage("請提供一個有效的Link");
-        return;
-    {
-	    
-    if (!message.member.voiceChannel) {
-	message.channel.sendMessage("請進入Voice Channel");
-        return;
-    {
-	    
-    if(!servers[message.guild.id]) servers[message.guild.id] =  {
-	queue: []    
-    };
-
-    var server = servers[message.guild.id]; 
-	    
-    server.queue.push(args[1]);
-		      
-    if (!message.guild.voiceConnection) message.member.voiceChannel.join()。then(function(connection) {
-	play(connection, message);    
-    });
-    break;
-case "skip":
-    var server = servers[message.guild.id]
-    
-    if (server.dispatcher) server.dispatcher.end()；
-    break
-	    
-default:
-    messasge.channel.sendMesssage("請用一個有效的指令")	    
 bot.login(token);

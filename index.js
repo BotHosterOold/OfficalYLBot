@@ -1,10 +1,9 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 
-const token = 'BOT TOKEN';
+const token = 'NTgxNzA2MjM4NTk3OTIyODM3.XOjKTw.YSQA3TEPwaAp3MncUfljUQ7JnNk';
 
 var prefix = "+";
-
 
 bot.on('ready', () =>{
     console.log('Bot已經Online了喲！')
@@ -14,10 +13,11 @@ bot.on('message', msg=>{
     if(msg.content ===  "Hypixel"){
 		msg.reply('You are not allowed to ad server!');
 	}
+})
 
 bot.on('message', msg=>{
-    if(msg.content ===  "Mineplex"){
-		msg.reply('You are not allowed to ad server!');
+    if(msg.content ===  "trash"){
+		msg.reply('No u!');
 	}
 })
 
@@ -60,10 +60,10 @@ bot.on("message", (message) => {
 
 if (message.content.toLowerCase().startsWith(prefix + `new`)) {
     const reason = message.content.split(" ").slice(1).join(" ");
-    if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`This server doesn't have a \`Support Team\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
-    if (message.guild.channels.exists("name", "ticket-" + message.author.username)) return message.channel.send(`你現在已經有一個Support ticket了.`);
+    if (!message.guild.roles.exists("name", "【客服人員】SUPPORT TEAM")) return message.channel.send(`This server doesn't have a \`Support Team\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
+    if (message.guild.channels.exists("name", "Ticket-${message.author.username}")) return message.channel.send(`你現在已經有一個Support ticket了.`);
     message.guild.createChannel(`ticket-${message.author.username}`, "text").then(c => {
-        let role = message.guild.roles.find("name", "【客服人員】SUPPORT TEAM");
+        let role = message.guild.roles.find("name", "Support Team");
         let role2 = message.guild.roles.find("name", "@everyone");
         c.overwritePermissions(role, {
             SEND_MESSAGES: true,
@@ -80,7 +80,7 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
         message.channel.send(`:white_check_mark: 以創建您的私人頻道, #${c.name}.`);
         const embed = new Discord.RichEmbed()
         .setColor(0xCF40FA)
-        .addField(`你好 ${message.author.username}!`, `**客服人員**很快就會到來，請稍等!`)
+        .addField(`你好 ${message.author.username}!`, `YL**客服人員**很快就會到來，請稍等!`)
         .setTimestamp();
         c.send({ embed: embed });
     }).catch(console.error);

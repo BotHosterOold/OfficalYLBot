@@ -16,6 +16,12 @@ bot.on('message', msg=>{
 })
 
 bot.on('message', msg=>{
+    if(msg.content ===  "yyya"){
+		message.channel.send(`Nothing.`);
+	}
+})
+
+bot.on('message', msg=>{
     if(msg.content ===  "trash"){
 		msg.reply('No u!');
 	}

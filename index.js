@@ -84,7 +84,6 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
         .addField(`你好 ${message.author.username}!`, `**客服人員**很快就會到來，請稍等!`)
         .setTimestamp();
         c.send({ embed: embed });
-    }).catch(console.error);
 }
 if (message.content.toLowerCase().startsWith(prefix + `close`)) {
     if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`請在Ticket裏面關閉Ticket.`);

@@ -21,6 +21,13 @@ bot.on('message', msg=>{
 	}
 })
 
+function clean(text) {
+    if (typeof(text) === "string")
+      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    else
+        return text;
+}
+
 //Welcome
 bot.on('guildMemberAdd', member => {
     // Send the message to a designated channel on a server:
@@ -31,6 +38,7 @@ bot.on('guildMemberAdd', member => {
     channel.send(`${member}歡迎來到YL伺服器":tada:`);
 });
 
+// Support Tickets
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 

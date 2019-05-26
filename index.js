@@ -5,6 +5,32 @@ const token = 'NTgxNzA2MjM4NTk3OTIyODM3.XOjKTw.YSQA3TEPwaAp3MncUfljUQ7JnNk';
 
 var prefix = "+";
 
+bot.on('ready', () =>{
+    console.log('Bot已經Online了喲！')
+})
+
+bot.on('message', msg=>{
+    if(msg.content ===  "Hypixel"){
+		msg.reply('You are not allowed to ad server!');
+	}
+})
+
+bot.on('message', msg=>{
+    if(msg.content ===  "trash"){
+		msg.reply('No u!');
+	}
+})
+
+//Welcome
+bot.on('guildMemberAdd', member => {
+    // Send the message to a designated channel on a server:
+    const channel = member.guild.channels.find('name', 'test');
+    // Do nothing if the channel wasn't found on this server
+    if (!channel) return;
+    // Send the message, mentioning the member
+    channel.send(`${member}歡迎來到YL伺服器":tada:`);
+});
+
 client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 

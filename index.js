@@ -61,10 +61,10 @@ bot.on("message", (message) => {
 
 if (message.content.toLowerCase().startsWith(prefix + `new`)) {
     const reason = message.content.split(" ").slice(1).join(" ");
-    if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`This server is trash`);
-    if (message.guild.channels.exists("name", "ticket-" + message.author.id)) return message.channel.send(`你現在已經有一個Support ticket了.`);
-    message.guild.createChannel(`ticket-${message.author.id}`, "text").then(c => {
-        let role = message.guild.roles.find("name", "Support Team");
+    if (!message.guild.roles.exists("name", "SupportTeam")) return message.channel.send(`This server is trash`);
+    if (message.guild.channels.exists("name", "ticket-" + message.author.username)) return message.channel.send(`你現在已經有一個Support ticket了.`);
+    message.guild.createChannel(`ticket-${message.author.username}`, "text").then(c => {
+        let role = message.guild.roles.find("name", "SupportTeam");
         let role2 = message.guild.roles.find("name", "@everyone");
         c.overwritePermissions(role, {
             SEND_MESSAGES: true,

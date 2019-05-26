@@ -5,66 +5,31 @@ const token = 'NTgxNzA2MjM4NTk3OTIyODM3.XOjKTw.YSQA3TEPwaAp3MncUfljUQ7JnNk';
 
 var prefix = "+";
 
-bot.on('ready', () =>{
-    console.log('Bot已經Online了喲！')
-})
-
-bot.on('message', msg=>{
-    if(msg.content ===  "Hypixel"){
-		msg.reply('You are not allowed to ad server!');
-	}
-})
-
-
-bot.on('message', msg=>{
-    if(msg.content ===  "trash"){
-		msg.reply('No u!');
-	}
-})
-
-//Welcome
-bot.on('guildMemberAdd', member => {
-    // Send the message to a designated channel on a server:
-    const channel = member.guild.channels.find('name', 'welcome');
-    // Do nothing if the channel wasn't found on this server
-    if (!channel) return;
-    // Send the message, mentioning the member
-    channel.send(`${member}歡迎來到YL伺服器":tada:`);
-});
-
-// Support Tickets
-function clean(text) {
-    if (typeof(text) === "string")
-      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-    else
-        return text;
-}
-
-bot.on("message", (message) => {
+client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   if (message.content.toLowerCase().startsWith(prefix + `help`)) {
     const embed = new Discord.RichEmbed()
-    .setTitle(`:mailbox_with_mail: Ticket Help`)
+    .setTitle(`:mailbox_with_mail: Vulnix Help`)
     .setColor(0xCF40FA)
-    .setDescription(`你好，我是YL伺服器BOT,我有這幾個指令:`)
-    .addField(`Tickets`, `[${prefix}new]() > 開啓私人頻道來詢問客服人員\n[${prefix}close]() > 關閉Ticket`)
-    .addField(`Other`, `[${prefix}help]() > 開啓幫助頁面\n[${prefix}ping]() > 延遲度\n[${prefix}about]() > 沒`)
+    .setDescription(`Hello! I'm Vulnix, the Discord bot for super cool support ticket stuff and more! Here are my commands:`)
+    .addField(`Tickets`, `[${prefix}new]() > Opens up a new ticket and tags the Support Team\n[${prefix}close]() > Closes a ticket that has been resolved or been opened by accident`)
+    .addField(`Other`, `[${prefix}help]() > Shows you this help menu your reading\n[${prefix}ping]() > Pings the bot to see how long it takes to react\n[${prefix}about]() > Tells you all about Vulnix`)
     message.channel.send({ embed: embed });
   }
 
   if (message.content.toLowerCase().startsWith(prefix + `ping`)) {
-    message.channel.send(`等我一下!`).then(m => {
-    m.edit(`**Pong!**` + (m.createdTimestamp - message.createdTimestamp) + `ms, Discord API heartbeat is ` + Math.round(client.ping) + `ms.`);
+    message.channel.send(`Hoold on!`).then(m => {
+    m.edit(`:ping_pong: Wew, made it over the ~waves~ ! **Pong!**\nMessage edit time is ` + (m.createdTimestamp - message.createdTimestamp) + `ms, Discord API heartbeat is ` + Math.round(client.ping) + `ms.`);
     });
 }
 
 if (message.content.toLowerCase().startsWith(prefix + `new`)) {
     const reason = message.content.split(" ").slice(1).join(" ");
-    if (!message.guild.roles.exists("name", "SupportTeam")) return message.channel.send(`This server is trash`);
-    if (message.guild.channels.exists("name", "ticket-" + message.author.username)) return message.channel.send(`你現在已經有一個Support ticket了.`);
-    message.guild.createChannel(`ticket-${message.author.username}`, "text").then(c => {
-        let role = message.guild.roles.find("name", "SupportTeam");
+    if (!message.guild.roles.exists("name", "Support Team")) return message.channel.send(`This server doesn't have a \`Support Team\` role made, so the ticket won't be opened.\nIf you are an administrator, make one with that name exactly and give it to users that should be able to see tickets.`);
+    if (message.guild.channels.exists("name", "ticket-" + message.author.id)) return message.channel.send(`You already have a ticket open.`);
+    message.guild.createChannel(`ticket-${message.author.id}`, "text").then(c => {
+        let role = message.guild.roles.find("name", "Support Team");
         let role2 = message.guild.roles.find("name", "@everyone");
         c.overwritePermissions(role, {
             SEND_MESSAGES: true,
@@ -78,17 +43,18 @@ if (message.content.toLowerCase().startsWith(prefix + `new`)) {
             SEND_MESSAGES: true,
             READ_MESSAGES: true
         });
-        message.channel.send(`:white_check_mark: 以創建您的私人頻道, #${c.name}.`);
+        message.channel.send(`:white_check_mark: Your ticket has been created, #${c.name}.`);
         const embed = new Discord.RichEmbed()
         .setColor(0xCF40FA)
-        .addField(`你好 ${message.author.username}!`, `**客服人員**很快就會到來，請稍等!`)
+        .addField(`Hey ${message.author.username}!`, `Please try explain why you opened this ticket with as much detail as possible. Our **Support Team** will be here soon to help.`)
         .setTimestamp();
         c.send({ embed: embed });
+    }).catch(console.error);
 }
 if (message.content.toLowerCase().startsWith(prefix + `close`)) {
-    if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`請在Ticket裏面關閉Ticket.`);
+    if (!message.channel.name.startsWith(`ticket-`)) return message.channel.send(`You can't use the close command outside of a ticket channel.`);
 
-    message.channel.send(`你肯定你在做什麽嗎?反不回頭的！如果肯定，請打 \`-confirm\`. 我們將會計時10秒`)
+    message.channel.send(`Are you sure? Once confirmed, you cannot reverse this action!\nTo confirm, type \`-confirm\`. This will time out in 10 seconds and be cancelled.`)
     .then((m) => {
       message.channel.awaitMessages(response => response.content === '-confirm', {
         max: 1,
@@ -99,7 +65,7 @@ if (message.content.toLowerCase().startsWith(prefix + `close`)) {
           message.channel.delete();
         })
         .catch(() => {
-          m.edit('時間過，不會刪除Ticket.').then(m2 => {
+          m.edit('Ticket close timed out, the ticket was not closed.').then(m2 => {
               m2.delete();
           }, 3000);
         });

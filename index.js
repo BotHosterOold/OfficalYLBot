@@ -39,7 +39,7 @@ bot.on('guildMemberAdd', member => {
 });
 
 // Support Tickets
-client.on("message", (message) => {
+bot.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   if (message.content.toLowerCase().startsWith(prefix + `help`)) {
